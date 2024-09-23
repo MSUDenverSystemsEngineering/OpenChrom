@@ -69,15 +69,15 @@ Try {
     ##* VARIABLE DECLARATION
     ##*===============================================
     ## Variables: Application
-    [string]$appVendor = ''
-    [string]$appName = ''
-    [string]$appVersion = ''
-    [string]$appArch = ''
+    [string]$appVendor = 'Lablicate'
+    [string]$appName = 'OpenChrom'
+    [string]$appVersion = '1.5.0'
+    [string]$appArch = 'x64'
     [string]$appLang = 'EN'
     [string]$appRevision = '01'
     [string]$appScriptVersion = '1.0.0'
-    [string]$appScriptDate = 'XX/XX/20XX'
-    [string]$appScriptAuthor = '<author name>'
+    [string]$appScriptDate = '08/18/2024'
+    [string]$appScriptAuthor = 'Ryan McKenna'
     ##*===============================================
     ## Variables: Install Titles (Only set here to override defaults set by the toolkit)
     [string]$installName = ''
@@ -144,7 +144,7 @@ Try {
         [String]$installPhase = 'Pre-Installation'
 
         ## Show Welcome Message, close Internet Explorer if required, allow up to 3 deferrals, verify there is enough disk space to complete the install, and persist the prompt
-        Show-InstallationWelcome -CloseApps 'processName' -CheckDiskSpace -PersistPrompt
+        Show-InstallationWelcome -CloseApps 'openchrom' -CheckDiskSpace -PersistPrompt
 
         ## Show Progress Message (with the default message)
         Show-InstallationProgress
@@ -168,6 +168,7 @@ Try {
         }
 
         ## <Perform Installation tasks here>
+        Execute-Process -Path "$dirFiles\OpenChrom_1.5.0_x64.exe" -Parameters "/S /D=C:\Program Files\OpenChrom"
 
 
         ##*===============================================
@@ -176,6 +177,8 @@ Try {
         [String]$installPhase = 'Post-Installation'
 
         ## <Perform Post-Installation tasks here>
+        Copy-File -Path "$dirSupportFiles\*" -Destination "$envCommonStartMenu\Programs\OpenChrom"
+
 
         ## Display a message at the end of the install
         ## See original PSADT Deploy-Application.ps1 file from GitHub if you want to use this feature
@@ -187,7 +190,7 @@ Try {
         [String]$installPhase = 'Pre-Uninstallation'
 
         ## Show Welcome Message, close Internet Explorer with a 60 second countdown before automatically closing
-        Show-InstallationWelcome -CloseApps 'processName' -CloseAppsCountdown 60
+        Show-InstallationWelcome -CloseApps 'openchrom' -CloseAppsCountdown 60
 
         ## Show Progress Message (with the default message)
         Show-InstallationProgress
@@ -210,6 +213,8 @@ Try {
 
         ## <Perform Uninstallation tasks here>
 
+        Execute-Process -Path "C:\Program Files\OpenChrom\uninstall.exe" -Parameters "/S"
+
 
         ##*===============================================
         ##* POST-UNINSTALLATION
@@ -217,6 +222,8 @@ Try {
         [String]$installPhase = 'Post-Uninstallation'
 
         ## <Perform Post-Uninstallation tasks here>
+
+        Remove-Folder -Path "$envCommonStartMenu\Programs\OpenChrom" -ContinueOnError $True
 
 
     }
@@ -227,7 +234,7 @@ Try {
         [String]$installPhase = 'Pre-Repair'
 
         ## Show Welcome Message, close Internet Explorer with a 60 second countdown before automatically closing
-        Show-InstallationWelcome -CloseApps 'processName' -CloseAppsCountdown 60
+        Show-InstallationWelcome -CloseApps 'openchrom' -CloseAppsCountdown 60
 
         ## Show Progress Message (with the default message)
         Show-InstallationProgress

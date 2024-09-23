@@ -40,3 +40,6 @@ Files
 
 #SupportFiles folder for PSADT
 SupportFiles
+
+#Wrapped Intunewin package
+*.intunewin
