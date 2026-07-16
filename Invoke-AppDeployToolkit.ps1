@@ -95,14 +95,14 @@ $adtSession = @{
     # App variables.
     AppVendor = 'Lablicate'
     AppName = 'OpenChrom'
-    AppVersion = '1.5.2'
+    AppVersion = '1.6.2'
     AppArch = 'x64'
     AppLang = 'EN'
     AppRevision = ''
     AppSuccessExitCodes = @(0)
     AppRebootExitCodes = @(1641, 3010)
     AppScriptVersion = '1.0.0'
-    AppScriptDate = '03/28/2025'
+    AppScriptDate = '04/28/2026'
     AppScriptAuthor = 'Will Jarvill'
 
     # Install Titles (Only set here to override defaults set by the toolkit).
@@ -152,7 +152,7 @@ function Install-ADTDeployment
     }
 
     ## <Perform Installation tasks here>
-    Start-ADTProcess -FilePath 'OpenChrom_1.5.2_setup_x64.exe' -ArgumentList '/S' -WindowStyle 'Hidden'
+    Start-ADTProcess -FilePath 'OpenChrom_1.6.14_setup_x64.exe' -ArgumentList '/S' -WindowStyle 'Hidden'
 
     ##================================================
     ## MARK: Post-Install
@@ -161,8 +161,7 @@ function Install-ADTDeployment
 
     ## <Perform Post-Installation tasks here>
     Copy-ADTFile -Path "$($adtSession.DirFiles)\OpenChrom.lnk" -Destination "$envCommonStartMenu\Programs\OpenChrom"
-    Remove-ADTFile -Path "$ProgramFiles\OpenChrom\openchrom.ini" -Recurse
-    Copy-ADTFile -Path "$($adtSession.DirSupportFiles)\openchrom.ini" -Destination "$envProgramFiles\OpenChrom\openchrom.ini"
+
     ## Display a message at the end of the install.
     #if (!$adtSession.UseDefaultMsi)
     #{
